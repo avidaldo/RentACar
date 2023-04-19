@@ -4,12 +4,20 @@ import org.example.model.Client;
 
 import java.util.ArrayList;
 
-public class ClientRepository implements IClientRepository{
+public class ClientRepository implements IClientRepository {
 
-    private final ArrayList<Client> clients;
+    private ArrayList<Client> clients;
+    private static ClientRepository clientRepository;
 
-    public ClientRepository() {
+    private ClientRepository() {
         clients = new ArrayList<>();
+    }
+
+    public static ClientRepository getClientRepository() {
+        if(clientRepository == null){
+            clientRepository = new ClientRepository();
+        }
+        return clientRepository;
     }
 
     public void add(Client client){
@@ -64,6 +72,10 @@ public class ClientRepository implements IClientRepository{
             }
         }
         return null;
+    }
+
+    public void cleanUp(){
+        clients = new ArrayList<>();
     }
 
 }

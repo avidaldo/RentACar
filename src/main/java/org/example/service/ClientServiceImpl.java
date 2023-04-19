@@ -10,30 +10,27 @@ public class ClientServiceImpl implements IClientService{
 
     private IClientRepository repository;
     public ClientServiceImpl() {
-        repository = new ClientRepository();
+        repository = ClientRepository.getClientRepository();
     }
 
-    @Override
     public void add(Client client) {
         repository.add(client);
     }
 
-    @Override
     public void deleteById(Long id) {
         repository.deleteById(id);
     }
 
-    @Override
     public ArrayList findAll() {
         return repository.findAll();
     }
 
-    @Override
+
     public Client findByDni(String dni) {
         return repository.findByDni(dni);
     }
 
-    @Override
+
     public void update(Client client) {
         repository.update(client);
     }

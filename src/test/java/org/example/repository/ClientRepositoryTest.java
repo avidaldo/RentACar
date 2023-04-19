@@ -1,6 +1,7 @@
 package org.example.repository;
 
 import org.example.model.Client;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -10,11 +11,16 @@ class ClientRepositoryTest {
     ClientRepository repository;
     @BeforeEach
     void setUp() {
-        repository = new ClientRepository();
+        repository = ClientRepository.getClientRepository();
         Client client1 = new Client("87896685P", "María", "Rodríguez");
         Client client2 = new Client("99687554K", "Nora", "Fernández");
         repository.add(client1);
         repository.add(client2);
+    }
+
+    @AfterEach
+    void tearDown(){
+        repository.cleanUp();
     }
 
     @Test
