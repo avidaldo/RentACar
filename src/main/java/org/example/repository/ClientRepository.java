@@ -26,12 +26,7 @@ public class ClientRepository implements IClientRepository {
     }
 
     public void update(Client client){
-        Client clientToUpdate = findById(client.getId());
-        if(clientToUpdate != null){
-            clientToUpdate.setDni(client.getDni());
-            clientToUpdate.setName(client.getName());
-            clientToUpdate.setSurname(client.getSurname());
-        }
+        clients.set(clients.indexOf(findById(client.getId())), client);
     }
 
     public ArrayList findAll(){
