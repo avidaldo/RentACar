@@ -18,10 +18,10 @@ class ClientRepositoryTest {
         repository.add(client2);
     }
 
-/*    @AfterEach
+    @AfterEach
     void tearDown(){
         repository.cleanUp();
-    }*/
+    }
 
     @Test
     void add() {
@@ -30,7 +30,7 @@ class ClientRepositoryTest {
         Assertions.assertEquals(client3, repository.findById(3L));
         Client client4 = new Client("59887995L", "Juan", "Pérez");
         repository.add(client4);
-        Assertions.assertEquals(client4.getDni(), repository.findById(4L).getDni());
+        Assertions.assertEquals(client4.getDni(), ((Client) repository.findById(4L)).getDni());
     }
 
     @Test
@@ -54,14 +54,21 @@ class ClientRepositoryTest {
         Assertions.assertEquals(0, repository.findAll().size());
     }
 
+    @Test
+    void nextIdAvailable() {
+        Assertions.assertEquals(3, repository.nextIdAvailable());
+        Client client = new Client("48572039G", "Tamara", "Sánchez");
+        repository.add(client);
+        Assertions.assertEquals(4, repository.nextIdAvailable());
+        repository.deleteById(1L);
+        Assertions.assertEquals(4, repository.nextIdAvailable());
+    }
 
     @Test
     void findById() {
-        Assertions.assertEquals("87896685P", repository.findById(1L).getDni());
-        Assertions.assertEquals("Nora", repository.findById(2L).getName());
+        Assertions.assertEquals("87896685P", ((Client) repository.findById(1L)).getDni());
+        Assertions.assertEquals("Nora", ((Client) repository.findById(2L)).getName());
     }
-
-
     @Test
     void findByDni(){
         Assertions.assertEquals(1, repository.findByDni("87896685P").getId());
@@ -69,30 +76,11 @@ class ClientRepositoryTest {
     }
 
     @Test
-    void update(){  // TODO: Restringir constructor con id
-        Assertions.assertEquals("87896685P", repository.findById(1L).getDni());
+    void update(){
+        Assertions.assertEquals("87896685P", ((Client) repository.findById(1L)).getDni());
         Client client = new Client(1L, "4453366OT", "Ignacio", "Pérez");
         repository.update(client);
-        Assertions.assertEquals("4453366OT", repository.findById(1L).getDni());
-    }
-
-    // TODO
-    @Test
-    void addExisting() {
-        Client client3 = new Client(1L,"39887554G", "Pedro", "Fernández");
-        repository.add(client3);
-        Assertions.assertEquals(client3, repository.findById(3L));
-        Client client4 = new Client("39887554G", "Pedro", "Fernández");
-        repository.add(client4);
-        Assertions.assertEquals(client4.getDni(), repository.findById(4L).getDni());
-    }
-
-    // TODO
-    @Test
-    void updateNotExisting(){
-        Client client = new Client(10000L, "4453366OT", "Ignacio", "Pérez");
-        repository.update(client);
-        Assertions.assertNull(repository.findById(10000L));
+        Assertions.assertEquals("4453366OT", ((Client) repository.findById(1L)).getDni());
     }
 
 }

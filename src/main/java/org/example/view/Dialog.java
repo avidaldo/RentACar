@@ -72,19 +72,20 @@ public class Dialog {
                     clientController.add(dni, name, surname);
                 } else if (choice == 2) {
                     System.out.println("Client ID: ");
-                    long id = scanner.nextLong();
-                    clientController.deleteById(id);
-                } else if (choice == 3) {  //
+                    int id = scanner.nextInt();
+                    clientController.deleteById((long) id);
+                } else if (choice == 3) {
                     System.out.println(clientController.findAll());
                     System.out.println("Client ID: ");
-                    long id = scanner.nextLong(); scanner.nextLine();
+                    int id = scanner.nextInt();
+                    scanner.nextLine();
                     System.out.println("Dni: ");
                     String dni = scanner.nextLine();
                     System.out.println("Name: ");
                     String name = scanner.nextLine();
                     System.out.println("Surname: ");
                     String surname = scanner.nextLine();
-                    clientController.update(id, dni, name, surname);
+                    clientController.update((long) id, dni, name, surname);
                 } else if (choice == 4) {
                     scanner.nextLine();
                     System.out.println("Dni: ");

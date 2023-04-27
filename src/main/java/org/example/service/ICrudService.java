@@ -1,12 +1,12 @@
 package org.example.service;
 
-import java.util.List;
+import java.util.ArrayList;
 
 public interface ICrudService<T> {
 
     void add(T t);
     void deleteById(Long id);
-    List<T> findAll();
+    ArrayList findAll();
     void update(T t);
 
 }

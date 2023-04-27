@@ -6,8 +6,11 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="RentACar" />
+        <module name="RentACarEntity" />
       </profile>
     </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="RentACar" target="11" />
+    </bytecodeTargetLevel>
   </component>
 </project>

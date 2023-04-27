@@ -1,75 +1,33 @@
 package org.example.repository;
 
 import org.example.model.Client;
+import org.example.model.Entity;
 
-import java.util.ArrayList;
-import java.util.List;
 
-public class ClientRepository implements IClientRepository {
-
-    private List<Client> clients = new ArrayList<>();
+public class ClientRepository extends CrudRepository {
 
     private static ClientRepository clientRepository;
+
+    private ClientRepository() {
+        super();
+    }
+
     public static ClientRepository getClientRepository() {
-        if(clientRepository == null) clientRepository = new ClientRepository();
+        if(clientRepository == null){
+            clientRepository = new ClientRepository();
+        }
         return clientRepository;
     }
 
-    public void add(Client client){
-        client.setId(nextIdAvailable());
-        clients.add(client);
-    }
 
-    private Long nextIdAvailable() {
-        if (!clients.isEmpty())
-            return clients.get(clients.size() - 1).getId() + 1;
-        else return 1L;
-    }
-
-    public void update(Client client) {
-
-
-        Client clientToUpdate = findById(client.getId());
-        if (clientToUpdate != null) {
-            clientToUpdate.setDni(client.getDni());
-            clientToUpdate.setName(client.getName());
-            clientToUpdate.setSurname(client.getSurname());
-        }
-    }
-
-    public List<Client> findAll() {
-        return clients;
-    }
-
-    public void deleteById(Long id) {
-        for (Client client : clients) {
-            if (client.getId().equals(id)) {
-                clients.remove(client);
-                break;
-            }
-        }
-    }
-
-    public Client findById(Long id) {
-        for (Client client : clients) {
-            if (client.getId().equals(id)) {
-                return client;
+    public Client findByDni(String dni){
+        for (Entity c : array) {
+            Client client = (Client) c;
+            if(client.getDni() == dni){
+                return (Client) c;
             }
         }
         return null;
-    }
-
-    public Client findByDni(String dni) {
-        for (Client client : clients) {
-            if (client.getDni().equals(dni)) {
-                return client;
-            }
-        }
-        return null;
-    }
-
-    public void cleanUp(){
-        clients = new ArrayList<>();
     }
 
 }

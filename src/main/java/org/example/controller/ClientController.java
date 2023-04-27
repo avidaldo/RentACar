@@ -4,25 +4,27 @@ import org.example.model.Client;
 import org.example.service.ClientServiceImpl;
 import org.example.service.IClientService;
 
-import java.util.List;
+import java.util.ArrayList;
 
 public class ClientController {
 
-    private final IClientService service;
+    private IClientService service;
     public ClientController() {
         service = new ClientServiceImpl();
     }
 
     public void add(String dni, String name, String surname){
-        Client client = new Client(dni, name, surname);  // Sin id
+        Client client = new Client(dni, name, surname);
         service.add(client);
+
     }
 
     public void deleteById(Long id){
         service.deleteById(id);
+
     }
 
-    public List<Client> findAll(){
+    public ArrayList findAll(){
         return service.findAll();
     }
 
